@@ -76,6 +76,38 @@
     m.querySelector('.txt').style.setProperty('--d', (base + 280) + 'ms');
   });
 
+  /* ---------- organogramas: a linha desce, o ramo sai e a caixa entra, um por um ---------- */
+  function montaOrga(org) {
+    const passo = +(org.dataset.passo || 150);
+    let t = 520;
+    const visita = ul => {
+      const pai = ul.previousElementSibling;
+      let antes = pai.offsetTop + pai.offsetHeight - ul.offsetTop + 8;
+      Array.from(ul.children).forEach(li => {
+        const no = li.querySelector(':scope > .no');
+        let cx = li.querySelector(':scope > .cx'), tk = li.querySelector(':scope > .tk');
+        if (!cx) { cx = document.createElement('i'); cx.className = 'cx'; li.prepend(cx); }
+        if (!tk) { tk = document.createElement('i'); tk.className = 'tk'; li.prepend(tk); }
+        const meio = no.offsetTop + no.offsetHeight / 2;
+        const y = li.offsetTop + meio;
+        const h = y - antes;
+        cx.style.top = (antes - li.offsetTop) + 'px'; cx.style.height = (h + 1) + 'px';
+        tk.style.top = (meio - 1) + 'px';
+        const dur = Math.round(Math.min(420, 140 + h * 1.1));
+        cx.style.setProperty('--d', t + 'ms'); cx.style.setProperty('--dur', dur + 'ms');
+        tk.style.setProperty('--d', (t + dur - 40) + 'ms');
+        no.dataset.a = 'dir'; no.style.setProperty('--d', (t + dur + 40) + 'ms');
+        t += Math.max(passo, Math.round(dur * 0.7));
+        antes = y;
+        const sub = li.querySelector(':scope > ul'); if (sub) visita(sub);
+      });
+    };
+    visita(org.querySelector(':scope > ul'));
+  }
+  const orgas = () => document.querySelectorAll('.orga').forEach(montaOrga);
+  orgas();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(orgas);
+
   /* ---------- imagens já decodificadas antes de aparecer (evita engasgo no mosaico) ---------- */
   document.querySelectorAll('img').forEach(i => { i.decoding = 'async'; if (i.decode) i.decode().catch(() => {}); });
 

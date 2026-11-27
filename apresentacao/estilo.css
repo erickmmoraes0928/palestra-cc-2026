@@ -378,3 +378,36 @@ html.estatico .mosaico { opacity: 1; }
 
 /* oficial combatente: a foto desce do topo da tela e para alinhada ao texto */
 [data-a="desce"] { transform: translateY(-340px); }
+
+/* ---------- v4 (27/11 tarde): título SI·SCC·CGPM e organogramas ---------- */
+.comando .sigla.tripla { font-size: 168px; white-space: nowrap; }
+[data-a="dir"] { transform: translateX(-14px); }
+.orga { position: absolute; left: 120px; top: 96px; width: 1010px; }
+.orga .rotulo { opacity: 0.75; }
+.orga .raiz { display: flex; align-items: center; gap: 28px; margin-top: 18px; }
+.orga .raiz .sig { font-weight: 900; font-size: 96px; line-height: 0.9; color: var(--dourado); letter-spacing: -0.02em; }
+.orga .raiz .ext { font-weight: 800; font-size: 36px; line-height: 1.12; text-transform: uppercase; max-width: 660px; text-wrap: balance; }
+.orga ul { list-style: none; margin: 0; padding: 0 0 0 52px; position: relative; }
+.orga > ul { margin-top: 20px; padding-left: 66px; }
+.orga li { position: relative; padding-top: 16px; }
+.orga .no { display: inline-flex; align-items: center; min-height: 62px; padding: 0 26px; border-radius: 12px;
+  background: rgba(242, 244, 245, 0.06); border: 1px solid rgba(242, 244, 245, 0.14);
+  font-weight: 600; font-size: 30px; line-height: 1.15; }
+.orga .no.n1 { background: rgba(60, 144, 240, 0.16); border-color: rgba(60, 144, 240, 0.6); font-weight: 700; }
+.compacto .orga li { padding-top: 6px; }
+.compacto .orga .no { min-height: 46px; font-size: 25px; padding: 0 20px; border-radius: 10px; }
+.orga .cx, .orga .tk { position: absolute; background: rgba(242, 244, 245, 0.42); }
+.orga .cx { left: -31px; width: 2px; transform-origin: 50% 0; transform: scaleY(0); }
+.orga .tk { left: -31px; width: 31px; height: 2px; transform-origin: 0 50%; transform: scaleX(0); }
+.slide.ativo .orga .cx { transform: scaleY(1); transition: transform var(--dur, 300ms) cubic-bezier(0.77, 0, 0.175, 1) var(--d, 0ms); }
+.slide.ativo .orga .tk { transform: scaleX(1); transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1) var(--d, 0ms); }
+.slide:not(.ativo) .orga .cx, .slide:not(.ativo) .orga .tk { transition: transform 0s linear var(--t-slide); }
+html.estatico .orga .cx, html.estatico .orga .tk { transform: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .orga .cx, .orga .tk { transform: none !important; } }
+.orga-foto { position: absolute; left: 1190px; right: 100px; top: 96px; bottom: 200px; display: grid; gap: 14px; }
+.orga-foto img { width: 100%; height: 100%; min-height: 0; object-fit: cover; border-radius: 18px; display: block; }
+.orga-foto.dois { grid-template-columns: 1.55fr 1fr; }
+.orga-foto.tres { grid-template-columns: 0.75fr 1.25fr; grid-template-rows: 1fr 1fr; }
+.orga-foto.tres img:first-child { grid-column: 1 / -1; }
+.orga .no { white-space: nowrap; }
+#scc .orga .no { font-size: 28px; }

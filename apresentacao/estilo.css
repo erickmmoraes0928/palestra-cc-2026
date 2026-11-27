@@ -375,3 +375,6 @@ html.estatico #guardiao .lm2 { transform: scaleX(1); }
 .mosaico.on { opacity: 1; }
 .montando .grade, .montando .t, .montando .t img { will-change: transform, opacity; }
 html.estatico .mosaico { opacity: 1; }
+
+/* oficial combatente: a foto desce do topo da tela e para alinhada ao texto */
+[data-a="desce"] { transform: translateY(-340px); }

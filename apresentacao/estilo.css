@@ -318,7 +318,7 @@ html.estatico #s12 .grade { opacity: 1; }
 #portas .porta p b { font-weight: 700; }
 
 /* --- foto em cartão (oficial combatente) --- */
-.foto-cartao { position: absolute; right: 110px; top: 50%; width: 760px; transform: translateY(-50%); }
+.foto-cartao { position: absolute; right: 110px; top: 250px; width: 760px; }
 .foto-cartao img { width: 100%; border-radius: 22px; display: block; }
 .foto-cartao .credito { display: block; margin-top: 12px; color: var(--marinho); }
 #combatente .texto { width: 900px; }

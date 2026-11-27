@@ -1,0 +1,37 @@
+// Notas do apresentador (tecla N), por id de slide.
+// Fonte: ROTEIRO_PALESTRA.md (Parte 1) e o pedido de 27/11/2026. "Sugestão" = fala proposta para slide novo, sem roteiro.
+// A fala é a ideia que a comandante desenvolve com as palavras dela; não é para ler.
+window.FALAS = {
+  'capa': 'Nenhuma fala. Capa em loop enquanto a turma entra. Só começar quando a turma estiver sentada.',
+  'pergunta': 'Faz a pergunta e pede mãos levantadas: "Quem já sabe que curso vai fazer? E quem ainda não sabe?"\nAcolhe os dois grupos.',
+  'pensar': 'Sugestão: deixa a pergunta no ar por alguns segundos. Sem resposta certa.',
+  'conversar': 'Sugestão: "Hoje eu vim mostrar uma porta que talvez vocês não conheçam."',
+  'hist': 'A PMERJ existe desde 1809: são 217 anos protegendo o estado. Uma das poucas instituições imperiais que existem até hoje.\n(O 1809 sobe para o canto, entra o 217, ele sobe também e aparece a frase. Se apertar → antes, a animação vai direto para o fim.)',
+  'joanino': 'Sugestão, para o vestibular: a PMERJ é de 1809, do período em que a corte de D. João estava no Rio, e é uma das poucas instituições daquela época que existem até hoje.\nATENÇÃO: conferir as datas marcadas como pendentes antes de falar delas.',
+  'guardiao': 'A PM está no Noroeste desde 1972; o 29º foi criado em 1990; hoje cuida de Itaperuna, Italva, Bom Jesus do Itabapoana, Cardoso Moreira, Laje do Muriaé, Porciúncula, Natividade, Varre-Sai e São José de Ubá.',
+  'linha': 'Sugestão: 1972, a PM chega a Itaperuna; 1977, a companhia ganha autonomia (5ª CIPM); 17/09/1990, nasce o 29º BPM; 2001, recebe o nome do Ten. Cel. PM Cezar Romero Rosa Pinto, filho da região. E hoje, pela primeira vez, uma mulher comanda o batalhão.',
+  'profissoes': 'Ponte para o próximo bloco: "Deixa eu mostrar onde vocês podem trabalhar."',
+  'coe-titulo': 'Sugestão: "Primeiro, o Comando de Operações Especiais."',
+  'bope-video': 'Nenhuma fala durante o vídeo (completo, 1 min 8 s).',
+  'coe': 'As unidades do COE passam sozinhas (BOPE, Choque, BTM, BAC, GAM) e terminam no mosaico.\n→ durante a sequência pula direto para o mosaico.',
+  'cpe-titulo': 'Sugestão: "Agora o Comando de Policiamento Especializado."',
+  'bepe-video': 'Antes: "Tem PM que trabalha no Maracanã." Vídeo completo (1 min 7 s). Depois, uma frase: é o batalhão de estádios.',
+  'cpe': 'As unidades do CPE passam sozinhas (RECOM, Cavalaria, BEPE, BPTur, BPVE, GPFer) e terminam no mosaico.\n→ durante a sequência pula direto para o mosaico.',
+  'trio-cmd': 'Sugestão: "E ainda tem o policiamento ambiental, o rodoviário e a polícia pacificadora."',
+  'ainda': '"Cavalaria, cães, moto, lancha, helicóptero, hospital, banda de música: tudo isso é Polícia Militar."\nATENÇÃO: conferir os números (pendente no slide).',
+  'portas': 'Sugestão: são duas portas de entrada: praça, que se forma no CFAP 31 de Voluntários, e oficial, que se forma na ESFO D. João VI.',
+  'esfo-video': 'Nenhuma fala durante o vídeo (completo, 2 min 4 s).\nAo fim: "Esses aí, há pouco tempo, estavam sentados onde vocês estão."',
+  'soldado': '"Vocês saem daqui em dezembro com o que a PM pede para ser soldado. Faltam só duas coisas: fazer 18 anos e tirar a carteira."\nPróximo concurso: cerca de 2.000 vagas previstas.',
+  'combatente': '"Quem quer comandar começa a escolher agora: hoje, para ser oficial combatente, é preciso ser bacharel em Direito."',
+  'saude': '"Vai fazer faculdade de saúde? Tem farda esperando por você."\nA PM tem hospital, e a Veterinária cuida dos cavalos e dos cães.',
+  'complementar': 'Essas portas existem, mas os concursos abrem com menos frequência: é preciso acompanhar.',
+  'taf': '"Todo concurso tem teste físico. Para entrar, o índice é este. Quem aqui já passaria hoje?" (mãos levantadas, ninguém faz exercício)\n"São 12 minutos de corrida. Dá para treinar a partir de amanhã."',
+  'ancora': 'A frase, devagar.',
+  'historia': 'Em primeira pessoa: com a idade deles, o que ela estava decidindo e quais eram as dúvidas; por que escolheu a PM.\nIngressou em 2001; aspirante a oficial em 1º/12/2003; passou por todos os postos; promovida a tenente-coronel em 21/08/2025.',
+  'formacao': '1º ano do CFO (2001) e o aspirantado (2003, conclusão do curso). Como foi a formação e o que a fez ficar.',
+  'formatura': 'Espadim (2001): a cerimônia de ingresso no 1º ano do CFO. Aspirantado (2003).',
+  'hoje': 'Fecha com: "Hoje eu comando o 29º, que protege as nove cidades de vocês."\nOpcional, a critério dela: ser a primeira mulher a comandar o 29º.',
+  'instagram': '"Quer acompanhar de perto? Pode pegar o celular agora. E quando sair edital de soldado ou de oficial, vocês ficam sabendo lá primeiro."\nEspera 20 s (contador abaixo). Agradece.',
+  'fim': 'Nenhuma fala. É o momento do aplauso. Fica parado até passar para as perguntas.',
+  'perguntas': '"A pergunta que não der tempo, manda no direct do 29º."\n(A P5 anota as dúvidas mais frequentes.)'
+};

@@ -1,0 +1,377 @@
+/* Palestra de carreira PMERJ · Colégio Central · 29º BPM
+   Paleta e tipografia: 29BPM_DNA/DNA.md §3 e roteiro §2.1. Só Poppins. */
+:root {
+  --marinho: #00549C;
+  --marinho-prof: #003A6E;
+  --royal: #3C90F0;
+  --nevoa: #EAF2FC;
+  --branco: #FFFFFF;
+  --preto: #05070B;
+  --grafite: #142033;
+  --gelo: #F2F4F5;
+  --dourado: #D8B048;
+  --cinza: #8A94A6;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --t-slide: 450ms;   /* transição entre slides: sempre a mesma */
+  --t-el: 320ms;      /* entrada de texto e elementos */
+  --s: 1;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+body { font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; cursor: none; }
+body.mostra-cursor { cursor: default; }
+
+#palco {
+  position: absolute; left: 50%; top: 50%;
+  width: 1920px; height: 1080px;
+  transform: translate(-50%, -50%) scale(var(--s));
+  transform-origin: center; overflow: hidden; background: #000;
+}
+
+/* ---------- slides ---------- */
+.slide {
+  position: absolute; inset: 0; overflow: hidden;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--t-slide) var(--ease-out), visibility 0s linear var(--t-slide);
+}
+.slide.ativo { opacity: 1; visibility: visible; transition: opacity var(--t-slide) var(--ease-out); z-index: 2; }
+
+.azul  { background: var(--marinho); color: var(--branco); }
+.claro { background: var(--branco); color: var(--marinho); }
+.preta { background: var(--preto); color: var(--gelo); }
+.video { background: #000; }
+
+/* entradas: só opacity + transform, ease-out, 200–400 ms */
+[data-a], .w {
+  opacity: 0; transform: translateY(14px);
+}
+.slide.ativo [data-a], .slide.ativo .w {
+  opacity: 1; transform: none;
+  transition: opacity var(--t-el) var(--ease-out) var(--d, 0ms), transform var(--t-el) var(--ease-out) var(--d, 0ms);
+}
+/* ao sair, só volta ao estado inicial depois que o slide sumiu */
+.slide:not(.ativo) [data-a], .slide:not(.ativo) .w {
+  transition: opacity 0s linear var(--t-slide), transform 0s linear var(--t-slide);
+}
+.w { display: inline-block; white-space: pre; }
+[data-a="fade"] { transform: none; }
+[data-a="zoom"] { transform: scale(0.96); }
+
+/* S25: sem animação nenhuma */
+.sem-anim [data-a], .sem-anim .w { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* ---------- tipografia ---------- */
+.centro {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 180px 60px;
+}
+.manchete { font-weight: 700; font-size: 116px; line-height: 1.08; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.preta .manchete { font-weight: 900; text-transform: uppercase; font-size: 120px; line-height: 1.04; letter-spacing: -0.01em; }
+.dourado { color: var(--dourado); }
+.rotulo { font-weight: 500; font-size: 28px; letter-spacing: 0.08em; text-transform: uppercase; margin: 0; }
+.preta .rotulo { font-weight: 700; letter-spacing: 0.12em; }
+.apoio { font-weight: 600; font-size: 52px; line-height: 1.25; margin: 0; }
+.corrido { font-weight: 400; font-size: 34px; line-height: 1.4; margin: 0; }
+.filete { width: 72px; height: 6px; border-radius: 3px; background: var(--royal); }
+.azul .sombra, .azul .manchete { text-shadow: 0 2px 18px rgba(0, 26, 56, 0.25); }
+
+/* ---------- assinatura (brasão + barra PMERJ) ---------- */
+.assin { position: absolute; left: 88px; right: 88px; bottom: 52px; display: flex; justify-content: space-between; align-items: flex-end; pointer-events: none; z-index: 5; }
+.assin .barra { height: 50px; width: auto; display: block; }
+.assin .brasao { height: 88px; width: auto; display: block; }
+.assin.so-brasao { justify-content: flex-end; }
+
+/* ---------- PENDENTE (aviso de produção, sai quando resolvido) ---------- */
+.pendente {
+  position: absolute; top: 34px; right: 40px; z-index: 20; max-width: 760px;
+  background: var(--dourado); color: var(--preto);
+  font: 700 22px/1.3 'Poppins', sans-serif; letter-spacing: 0.02em;
+  padding: 12px 20px; border-radius: 10px;
+}
+.pendente b { font-weight: 900; letter-spacing: 0.08em; }
+.pend-inline { display: inline-block; background: var(--dourado); color: var(--preto); font-weight: 700; font-size: 20px; padding: 4px 12px; border-radius: 6px; letter-spacing: 0.04em; }
+body.sem-pendencias .pendente, body.sem-pendencias .pend-inline { display: none; }
+
+/* ---------- vídeo ---------- */
+.slide video, .slide .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slide.video video { opacity: 0; }
+.slide.video.ativo video { opacity: 1; transition: opacity 250ms var(--ease-out); }
+.slide .poster { display: none; }
+
+/* ---------- S01 capa ---------- */
+#capa .brasao-capa { position: absolute; left: 50%; top: 50%; height: 194px; transform: translate(-50%, -56%); }
+#capa .barra-capa { position: absolute; left: 50%; bottom: 56px; height: 48px; transform: translateX(-50%); }
+#capa video { opacity: 1 !important; }
+
+/* ---------- S04–S06 trajetória ---------- */
+.traj { position: absolute; left: 0; right: 0; top: 110px; bottom: 150px; display: flex; gap: 28px; justify-content: center; align-items: flex-start; padding: 0 120px; }
+.traj figure { margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.traj img { height: 760px; width: auto; display: block; }
+#s05 .traj img { height: 680px; }
+.traj figcaption { font-weight: 600; font-size: 26px; line-height: 1.2; color: rgba(255,255,255,0.92); display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.traj-rotulo { position: absolute; left: 88px; top: 52px; display: flex; align-items: center; gap: 18px; }
+.traj-rotulo .filete { background: var(--branco); opacity: 0.9; width: 48px; height: 5px; }
+.credito { font-weight: 500; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; }
+
+/* ---------- S07 1809 ---------- */
+.numero-heroi { font-weight: 700; font-size: 380px; line-height: 0.95; letter-spacing: -0.03em; margin: 0; font-variant-numeric: tabular-nums; }
+
+/* ---------- S08 mapa ---------- */
+#guardiao .col { position: absolute; left: 120px; top: 0; bottom: 150px; width: 820px; display: flex; flex-direction: column; justify-content: center; gap: 44px; }
+#guardiao .numeros { display: flex; flex-direction: column; gap: 26px; }
+#guardiao .num { display: flex; align-items: baseline; gap: 22px; }
+#guardiao .num strong { font-weight: 700; font-size: 128px; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; min-width: 0; }
+#guardiao .num > span { font-weight: 600; font-size: 46px; }
+#guardiao .mapa { position: absolute; right: 110px; top: 60px; height: 960px; }
+#guardiao .mapa img { height: 100%; display: block; }
+#guardiao .ponto { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: var(--royal); box-shadow: 0 0 0 6px #fff; transform: translate(-50%, -50%); }
+#guardiao .ponto-nome { position: absolute; transform: translate(30px, -50%); font-weight: 600; font-size: 36px; color: #fff; text-shadow: 0 2px 12px rgba(0, 30, 70, 0.45); white-space: nowrap; }
+
+/* ---------- S12 mosaico ---------- */
+#s12 .q { position: absolute; inset: 0; opacity: 0; transition: opacity 140ms var(--ease-out); }
+#s12 .q.on { opacity: 1; transition: opacity 260ms var(--ease-out) 130ms; }
+#s12 .assin { justify-content: flex-start; }
+#s12 .q .foto { position: absolute; right: 0; top: 0; bottom: 0; width: 1080px; overflow: hidden; }
+#s12 .q .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+#s12 .q .nome { position: absolute; left: 96px; top: 50%; transform: translateY(-50%); width: 700px; }
+#s12 .q .nome h2 { font-weight: 900; text-transform: uppercase; font-size: 92px; line-height: 1.02; margin: 0; color: var(--dourado); letter-spacing: -0.01em; text-wrap: balance; }
+#s12 .q .nome p { font-weight: 700; font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza); margin: 0 0 22px; }
+#s12 .grade { position: absolute; inset: 70px 96px 170px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 26px 26px; opacity: 0; transition: opacity 320ms var(--ease-out); }
+#s12 .grade.on { opacity: 1; }
+#s12 .grade figure { margin: 0; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+#s12 .grade img { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
+#s12 .grade figcaption { font-weight: 900; font-size: 26px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gelo); }
+#s12 .grade .ultima { grid-column: 4; }
+
+/* ---------- S15 / S29 QR ---------- */
+.qr { display: block; width: 100%; height: auto; border-radius: 4%; }
+#instagram .qr-wrap { position: absolute; left: 240px; top: 200px; width: 600px; }
+#instagram .arroba { position: absolute; left: 920px; right: 100px; top: 50%; transform: translateY(-60%); }
+#instagram .arroba .manchete { font-size: 90px; white-space: nowrap; }
+#perguntas .qr-mini { position: absolute; right: 88px; top: 72px; width: 220px; }
+#perguntas .qr-mini p { margin: 14px 0 0; font-weight: 600; font-size: 26px; text-align: center; }
+
+/* ---------- conteúdo dividido (texto + foto) ---------- */
+.divide .texto { position: absolute; left: 120px; top: 0; bottom: 140px; width: 1000px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+.divide .foto-lado { position: absolute; right: 0; top: 0; bottom: 0; width: 700px; overflow: hidden; }
+.divide .foto-lado img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.divide.foto-esq .texto { left: auto; right: 110px; width: 1010px; }
+.divide.foto-esq .foto-lado { left: 0; right: auto; }
+.divide .foto-lado .credito { position: absolute; left: 22px; bottom: 18px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+.claro.divide .assin { right: 760px; }
+.claro.divide.foto-esq .assin { left: 790px; right: 88px; }
+.divide .manchete { font-size: 92px; }
+
+.req { display: flex; flex-direction: column; gap: 22px; margin: 6px 0 0; padding: 0; list-style: none; }
+.req li { display: flex; align-items: center; gap: 24px; }
+.req .ic { width: 58px; height: 58px; flex: none; }
+.req strong { font-weight: 700; font-size: 54px; line-height: 1.05; }
+.req small { font-weight: 400; font-size: 30px; opacity: 0.85; margin-left: 4px; }
+.lista-apoio { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.lista-apoio li { font-weight: 400; font-size: 30px; line-height: 1.35; padding-left: 30px; position: relative; }
+.lista-apoio li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 12px; height: 4px; border-radius: 2px; background: var(--royal); }
+.lista-forte li { font-size: 38px; }
+.lista-forte li b { font-weight: 700; }
+
+/* ---------- S17 cartões ---------- */
+#s17 .cartoes { position: absolute; left: 120px; right: 120px; top: 300px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+.cartao { background: var(--nevoa); border-radius: 22px; padding: 30px 34px 34px; min-height: 236px; display: flex; flex-direction: column; justify-content: space-between; }
+.cartao .n { font-weight: 600; font-size: 28px; color: var(--royal); }
+.cartao h3 { font-weight: 700; font-size: 44px; line-height: 1.1; margin: 0; color: var(--marinho); }
+.cartao.aberta { background: var(--marinho); }
+.cartao.aberta h3 { color: #fff; }
+.cartao.aberta .n { color: #fff; opacity: 0.8; }
+.titulo-topo { position: absolute; left: 120px; top: 110px; display: flex; flex-direction: column; gap: 22px; }
+.titulo-topo .manchete { font-size: 92px; }
+
+/* ---------- S20 tabela ---------- */
+#taf table { position: absolute; left: 120px; top: 380px; width: 1680px; border-collapse: collapse; font-size: 46px; }
+#taf th { font-weight: 600; font-size: 30px; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; padding: 0 0 18px; color: var(--marinho); opacity: 0.8; }
+#taf td { padding: 28px 0; border-top: 3px solid var(--nevoa); font-weight: 400; }
+#taf td:first-child { font-weight: 700; width: 36%; }
+#taf th:not(:first-child), #taf td:not(:first-child) { width: 32%; }
+#taf tr td:not(:first-child) { font-weight: 600; }
+
+/* ---------- S22 / S23 / S24 chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 14px 14px; margin: 0; padding: 0; list-style: none; }
+.chips li { background: var(--nevoa); border-radius: 999px; padding: 12px 28px; font-weight: 600; font-size: 34px; }
+.trio { position: absolute; left: 120px; right: 120px; top: 420px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.trio .cartao { min-height: 260px; }
+.trio .cartao p { margin: 0; font-size: 30px; font-weight: 400; color: var(--marinho); }
+.soma { position: absolute; left: 120px; right: 120px; top: 420px; display: flex; align-items: center; gap: 40px; }
+.soma .cartao { flex: 1; min-height: 240px; justify-content: center; }
+.soma .mais { font-weight: 700; font-size: 110px; color: var(--royal); }
+
+/* ---------- S26 passos ---------- */
+#s26 .passos-wrap { position: absolute; left: 120px; right: 120px; top: 0; bottom: 140px; display: flex; flex-direction: column; justify-content: center; gap: 40px; }
+#s26 ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+#s26 li { display: flex; align-items: center; gap: 34px; font-weight: 600; font-size: 50px; line-height: 1.15; }
+#s26 li .k { width: 76px; height: 76px; flex: none; border-radius: 50%; background: #fff; color: var(--marinho); font-weight: 700; font-size: 40px; display: flex; align-items: center; justify-content: center; }
+#s26 .qr-passo { position: absolute; right: 150px; bottom: 170px; width: 300px; }
+
+/* ---------- S28 assinatura ---------- */
+#fim .brasao-fim { height: 300px; display: block; margin: 0 auto 46px; }
+#fim h2 { font-weight: 700; font-size: 84px; margin: 0; line-height: 1.1; }
+#fim p { font-weight: 600; font-size: 44px; margin: 14px 0 0; opacity: 0.92; }
+#fim .barra-fim { position: absolute; left: 50%; bottom: 52px; height: 46px; transform: translateX(-50%); }
+#fim [data-a="sobe"] { transform: translateY(16px); }
+.slide.ativo#fim [data-a="sobe"] { transform: none; transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out); }
+
+/* ---------- tela preta (B) ---------- */
+#tela-preta { position: fixed; inset: 0; background: #000; z-index: 100; display: none; }
+body.preto #tela-preta { display: block; }
+
+/* ---------- movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-a], .w { transform: none !important; }
+  .slide.ativo [data-a], .slide.ativo .w { transition-duration: 200ms !important; transition-delay: 0ms !important; }
+}
+
+/* ---------- modo estático (PDF / folha de contato) ---------- */
+html.estatico .slide, html.estatico [data-a], html.estatico .w { transition: none !important; }
+html.estatico [data-a], html.estatico .w { opacity: 1 !important; transform: none !important; }
+html.estatico .slide.video video, html.estatico #capa video { display: none; }
+html.estatico .slide .poster { display: block; }
+html.estatico #s12 .q { display: none; }
+html.estatico #s12 .grade { opacity: 1; }
+
+/* =====================================================================
+   v2 · 27/11/2026 — novos blocos
+   ===================================================================== */
+
+/* --- Itaperuna mais legível (sombra suave) --- */
+#guardiao .ponto-nome { transform: translate(-50%, 28px); text-shadow: 0 2px 4px rgba(0, 20, 50, 0.75), 0 0 18px rgba(0, 20, 50, 0.55); font-weight: 700; }
+
+/* --- 1809 → 217 --- */
+#hist .g1809, #hist .g217 { position: absolute; left: 0; right: 0; text-align: center; }
+#hist .g1809 { top: 250px; transform-origin: 0 0; }
+#hist .g217 { top: 300px; opacity: 0; }
+#hist .g217 .numero-heroi { font-size: 360px; }
+#hist .g217 .apoio { font-size: 64px; }
+
+/* --- período joanino --- */
+#joanino .lista-j { position: absolute; left: 120px; right: 120px; top: 400px; display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(4, auto); gap: 16px 40px; margin: 0; padding: 0; list-style: none; }
+#joanino .lista-j li { display: flex; align-items: center; gap: 22px; padding: 14px 22px; border-radius: 16px; font-weight: 600; font-size: 34px; line-height: 1.2; }
+#joanino .lista-j li .k { font-weight: 700; color: var(--royal); font-size: 30px; width: 36px; flex: none; }
+#joanino .lista-j li.destaque { background: var(--marinho); color: #fff; }
+#joanino .lista-j li.destaque .k { color: #fff; opacity: 0.8; }
+#joanino .titulo-topo .manchete { font-size: 72px; max-width: 1500px; }
+
+/* --- linha do tempo do 29º --- */
+#linha .eixo { position: absolute; left: 280px; right: 280px; top: 560px; height: 4px; background: rgba(255,255,255,0.55); border-radius: 2px; transform-origin: 0 50%; }
+#linha .marcos { position: absolute; left: 280px; right: 280px; top: 0; bottom: 0; }
+#linha .marco { position: absolute; top: 0; bottom: 0; width: 320px; margin-left: -160px; }
+#linha .marco .ano { position: absolute; top: 440px; left: 0; right: 0; text-align: center; font-weight: 700; font-size: 66px; line-height: 1; }
+#linha .marco .bola { position: absolute; top: 548px; left: 50%; width: 28px; height: 28px; margin-left: -14px; border-radius: 50%; background: var(--marinho); border: 5px solid #fff; }
+#linha .marco .txt { position: absolute; top: 610px; left: 0; right: 0; text-align: center; font-weight: 400; font-size: 29px; line-height: 1.35; }
+#linha .marco.hoje .bola { width: 44px; height: 44px; margin-left: -22px; top: 540px; background: #fff; box-shadow: 0 0 0 8px rgba(60,144,240,0.55); }
+#linha .marco.hoje .txt { font-weight: 600; font-size: 30px; }
+#linha .titulo-topo { top: 96px; }
+
+/* --- título de comando (faixa preta) --- */
+.comando .sigla { font-weight: 900; font-size: 300px; line-height: 0.9; color: var(--dourado); letter-spacing: -0.02em; margin: 0; }
+.comando .extenso { font-weight: 900; font-size: 76px; line-height: 1.05; text-transform: uppercase; margin: 26px 0 0; letter-spacing: -0.005em; text-wrap: balance; }
+
+/* --- unidades: sequência um a um + mosaico --- */
+.unidades .q { position: absolute; inset: 0; opacity: 0; transition: opacity 140ms var(--ease-out); }
+.unidades .q.on { opacity: 1; transition: opacity 260ms var(--ease-out) 130ms; }
+.unidades .q .foto { position: absolute; right: 0; top: 0; bottom: 0; width: 1080px; overflow: hidden; }
+.unidades .q .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.unidades .q .nome { position: absolute; left: 96px; top: 50%; transform: translateY(-50%); width: 700px; }
+.unidades .q .nome p { font-weight: 700; font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza); margin: 0 0 22px; }
+.unidades .q .nome h2 { font-weight: 900; text-transform: uppercase; font-size: 118px; line-height: 1; margin: 0; color: var(--dourado); letter-spacing: -0.01em; }
+.unidades .q .nome .ext { font-weight: 600; font-size: 36px; line-height: 1.25; color: var(--gelo); margin: 26px 0 0; text-wrap: balance; text-transform: none; letter-spacing: 0; }
+.unidades .assin { justify-content: flex-start; }
+
+.mosaico { position: absolute; inset: 0; visibility: hidden; }
+.mosaico.on { visibility: visible; }
+.mosaico .cab { position: absolute; left: 96px; top: 64px; right: 96px; display: flex; align-items: baseline; gap: 28px; }
+.mosaico .cab .sg { font-weight: 900; font-size: 60px; color: var(--dourado); line-height: 1; }
+.mosaico .cab h2 { font-weight: 900; font-size: 60px; text-transform: uppercase; margin: 0; line-height: 1; color: var(--gelo); }
+.mosaico .grade { position: absolute; left: 96px; right: 96px; top: 170px; bottom: 150px; display: grid; gap: 18px; transform-origin: 50% 45%; }
+.mosaico .t { position: relative; margin: 0; overflow: hidden; border-radius: 18px; background: var(--grafite); min-height: 0; }
+.mosaico .t img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 50%; }
+.mosaico .t figcaption { position: absolute; left: 22px; bottom: 16px; right: 22px; font-weight: 900; font-size: 30px; letter-spacing: 0.02em; text-transform: uppercase; color: var(--gelo); text-shadow: 0 2px 6px rgba(0,0,0,0.7), 0 0 22px rgba(0,0,0,0.55); }
+.mosaico .t figcaption small { display: block; font-weight: 600; font-size: 18px; letter-spacing: 0.04em; text-transform: none; opacity: 0.95; }
+.g5 { grid-template-columns: 1.4fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; grid-template-areas: "a b c c" "a d e e"; }
+.g6 { grid-template-columns: 1.3fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; grid-template-areas: "a b c d" "a e f f"; }
+.g3x2 { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto 1fr 1fr; grid-auto-flow: column; }
+.g3x2 .col-t { font-weight: 900; font-size: 34px; text-transform: uppercase; color: var(--gelo); line-height: 1.05; padding-bottom: 6px; }
+.g3x2 .col-t span { display: block; color: var(--dourado); font-size: 26px; letter-spacing: 0.08em; margin-bottom: 6px; }
+#trio-cmd .grade { top: 90px; }
+
+/* --- “Ainda há” --- */
+#ainda .nums { position: absolute; left: 120px; right: 120px; top: 380px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+#ainda .nums div { border-top: 5px solid rgba(255,255,255,0.35); padding-top: 26px; }
+#ainda .nums strong { display: block; font-weight: 700; font-size: 150px; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+#ainda .nums span { display: block; font-weight: 600; font-size: 36px; line-height: 1.2; margin-top: 16px; }
+
+/* --- duas portas --- */
+#portas .duas { position: absolute; left: 120px; right: 120px; top: 300px; bottom: 150px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+#portas .porta { background: var(--nevoa); border-radius: 26px; overflow: hidden; display: flex; flex-direction: column; }
+#portas .porta img { width: 100%; height: 360px; object-fit: cover; display: block; }
+#portas .porta .info { padding: 30px 40px; display: flex; flex-direction: column; gap: 10px; }
+#portas .porta h3 { font-weight: 700; font-size: 72px; margin: 0; line-height: 1; color: var(--marinho); }
+#portas .porta p { margin: 0; font-weight: 400; font-size: 30px; color: var(--marinho); }
+#portas .porta p b { font-weight: 700; }
+
+/* --- foto em cartão (oficial combatente) --- */
+.foto-cartao { position: absolute; right: 110px; top: 50%; width: 760px; transform: translateY(-50%); }
+.foto-cartao img { width: 100%; border-radius: 22px; display: block; }
+.foto-cartao .credito { display: block; margin-top: 12px; color: var(--marinho); }
+#combatente .texto { width: 900px; }
+#combatente .assin { right: 88px; }
+
+/* --- minha história: degraus --- */
+#historia .degraus { position: absolute; left: 120px; right: 120px; bottom: 170px; height: 560px; display: flex; align-items: flex-end; gap: 14px; }
+#historia .degrau { flex: 1; background: rgba(255,255,255,0.12); border-radius: 16px 16px 0 0; padding: 20px 18px; display: flex; flex-direction: column; gap: 6px; }
+#historia .degrau .a { font-weight: 600; font-size: 22px; opacity: 0.85; min-height: 1.3em; }
+#historia .degrau .r { font-weight: 700; font-size: 28px; line-height: 1.1; }
+#historia .degrau.topo { background: #fff; color: var(--marinho); }
+#historia .titulo-topo .manchete { font-size: 84px; }
+#historia .titulo-topo .corrido { max-width: 1500px; font-size: 32px; }
+
+/* linha do tempo: eixo se desenha da esquerda para a direita */
+#linha [data-a="eixo"] { opacity: 1; transform: scaleX(0); }
+.slide.ativo#linha [data-a="eixo"] { transform: scaleX(1); transition: transform 1100ms cubic-bezier(0.77, 0, 0.175, 1) 250ms; }
+html.estatico #linha [data-a="eixo"] { transform: none !important; }
+/* mosaico no modo estático */
+html.estatico .unidades .q { display: none; }
+html.estatico .mosaico { visibility: visible; }
+#instagram .arroba .rotulo { font-size: 30px; }
+
+/* =====================================================================
+   v3 · 27/11/2026
+   ===================================================================== */
+/* 1809 → 217 → frase */
+#hist .g217 { transform-origin: 0 0; }
+#hist .frase-imp { position: absolute; left: 160px; right: 160px; top: 330px; bottom: 170px; display: flex; align-items: center; justify-content: center; text-align: center; }
+#hist .frase-imp .manchete { font-size: 96px; line-height: 1.1; }
+.slide.ativo#hist .frase-imp:not(.on) .w { opacity: 0; transform: translateY(14px); transition: none; }
+
+/* mapa: ponto → linha → nome na área branca */
+#guardiao .ponto { left: 348.6px; top: 483.8px; transform: none; margin: -15px 0 0 -15px; }
+#guardiao .ponto-nome { display: none; }
+/* linha com cotovelo: sobe na diagonal a partir do ponto e dobra na horizontal até o nome */
+#guardiao .lm1, #guardiao .lm2 { position: absolute; height: 5px; margin-top: -2.5px; border-radius: 2.5px; background: var(--royal); transform-origin: 0 50%; }
+#guardiao .lm1 { left: 348.6px; top: 483.8px; width: 394px; transform: rotate(-67.4deg) scaleX(0); }
+#guardiao .lm2 { left: 498px; top: 120px; width: 92px; transform: scaleX(0); }
+.slide.ativo#guardiao .lm1 { transform: rotate(-67.4deg) scaleX(1); transition: transform 600ms cubic-bezier(0.77, 0, 0.175, 1) 700ms; }
+.slide.ativo#guardiao .lm2 { transform: scaleX(1); transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 1300ms; }
+html.estatico #guardiao .lm1 { transform: rotate(-67.4deg) scaleX(1); }
+html.estatico #guardiao .lm2 { transform: scaleX(1); }
+#guardiao .rotulo-mapa { position: absolute; left: 604px; top: 91px; font-weight: 700; font-size: 42px; line-height: 58px; color: var(--marinho); white-space: nowrap; }
+
+/* linha do tempo cadenciada: eixo corre em ritmo constante e cada marco acende quando o eixo chega */
+.slide.ativo#linha [data-a="eixo"] { transition: transform 3400ms linear 300ms; }
+#linha .marco [data-a] { --t-el: 560ms; }
+#linha .marco .bola[data-a] { transform: none; }
+
+/* mosaico: já rasterizado (invisível) durante a sequência, para não engasgar na montagem */
+.mosaico { visibility: hidden; opacity: 0; }
+.unidades.ativo .mosaico { visibility: visible; will-change: opacity; }
+.mosaico.on { opacity: 1; }
+.montando .grade, .montando .t, .montando .t img { will-change: transform, opacity; }
+html.estatico .mosaico { opacity: 1; }

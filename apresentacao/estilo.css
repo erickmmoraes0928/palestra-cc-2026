@@ -411,3 +411,9 @@ html.estatico .orga .cx, html.estatico .orga .tk { transform: none !important; t
 .orga-foto.tres img:first-child { grid-column: 1 / -1; }
 .orga .no { white-space: nowrap; }
 #scc .orga .no { font-size: 28px; }
+
+/* nome do comando no mosaico: entra por classe (.titulo), acima da grade */
+.mosaico .cab { z-index: 3; opacity: 0; transform: translateY(18px); }
+.mosaico.titulo .cab { opacity: 1; transform: none; transition: opacity 550ms cubic-bezier(0.23, 1, 0.32, 1), transform 550ms cubic-bezier(0.23, 1, 0.32, 1); }
+html.estatico .mosaico .cab { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .mosaico .cab { transform: none; } }

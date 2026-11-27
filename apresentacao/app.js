@@ -200,7 +200,7 @@
   function resetUnidades(sl) {
     limpaTimers(sl);
     sl.querySelectorAll('.q').forEach(q => q.classList.remove('on'));
-    const m = sl.querySelector('.mosaico'); m.classList.remove('on'); cancelaAnims(m);
+    const m = sl.querySelector('.mosaico'); m.classList.remove('on', 'titulo'); cancelaAnims(m);
     sl.__montado = false;
   }
   function entraUnidades(sl) {
@@ -222,7 +222,7 @@
     const cab = m.querySelector('.cab'), cols = Array.from(m.querySelectorAll('.col-t')), caps = Array.from(m.querySelectorAll('figcaption'));
     const atraso = tinhaSeq ? 200 : 0;            // deixa o último quadro sumir antes
     const op = (el, d, dur, de) => el.animate([{ opacity: 0, transform: de || 'none' }, { opacity: 1, transform: 'none' }], { duration: dur, easing: EASE_OUT, fill: 'both', delay: d });
-    if (reduzido) { [grade, cab].filter(Boolean).forEach(e => op(e, atraso, 300)); return; }
+    if (reduzido) { op(grade, atraso, 300); m.classList.add('titulo'); return; }
     // ordem radial: do centro do mosaico para fora
     const gr = grade.getBoundingClientRect(), cx = gr.left + gr.width / 2, cy = gr.top + gr.height / 2;
     const ordem = tiles.map(t => { const r = t.getBoundingClientRect(); return { t, d: Math.hypot(r.left + r.width / 2 - cx, r.top + r.height / 2 - cy) }; })
@@ -237,7 +237,8 @@
     const fim = atraso + tiles.length * 90 + 450;
     caps.forEach((c, k) => op(c, fim + k * 45, 420, 'translateY(10px)'));
     cols.forEach((c, k) => op(c, atraso + 150 + k * 140, 450, 'translateY(12px)'));
-    if (cab) op(cab, fim - 100, 550, 'translateY(18px)');
+    // nome do comando: classe + transição CSS (não depende do preenchimento da animação em JS)
+    if (cab) depois(sl, fim - 100, () => m.classList.add('titulo'));
   }
 
   /* ---------- vídeo: começa sozinho, para e volta ao início ao sair ---------- */

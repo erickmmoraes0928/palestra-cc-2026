@@ -27,7 +27,7 @@ window.FALAS = {
   'complementar': 'Essas portas existem, mas os concursos abrem com menos frequência: é preciso acompanhar.',
   'taf': '"Todo concurso tem teste físico. Para entrar, o índice é este. Quem aqui já passaria hoje?" (mãos levantadas, ninguém faz exercício)\n"São 12 minutos de corrida. Dá para treinar a partir de amanhã."',
   'ancora': 'A frase, devagar.',
-  'historia': 'Em primeira pessoa: com a idade deles, o que ela estava decidindo e quais eram as dúvidas; por que escolheu a PM.\nIngressou em 2001; aspirante a oficial em 1º/12/2003; passou por todos os postos; promovida a tenente-coronel em 21/08/2025.',
+  'historia': 'Em primeira pessoa: com a idade deles, o que ela estava decidindo e quais eram as dúvidas; por que escolheu a PM.\nIngressou em 2001; aspirante a oficial em 1º/12/2003; promovida a tenente-coronel em 21/08/2025; hoje, comandante do 29º BPM.',
   'formacao': '1º ano do CFO (2001) e o aspirantado (2003, conclusão do curso). Como foi a formação e o que a fez ficar.',
   'formatura': 'Espadim (2001): a cerimônia de ingresso no 1º ano do CFO. Aspirantado (2003).',
   'hoje': 'Fecha com: "Hoje eu comando o 29º, que protege as nove cidades de vocês."\nOpcional, a critério dela: ser a primeira mulher a comandar o 29º.',
